@@ -14,7 +14,7 @@ class RedisResource(private val reactiveRedisOperations: ReactiveRedisOperations
     fun getData() {
         val opsForStream = reactiveRedisOperations.opsForStream<Any, Any>()
         val add = opsForStream.add("stream1", mapOf("hello" to "world"))
-        add.subscribe(::print)
+        add.subscribe(::println)
 
     }
 }

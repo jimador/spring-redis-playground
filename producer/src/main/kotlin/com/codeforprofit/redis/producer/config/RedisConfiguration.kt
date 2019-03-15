@@ -24,7 +24,7 @@ class RedisConfiguration(redisProperties: RedisProperties) {
     fun messageListener(factory: RedisConnectionFactory): StreamMessageListenerContainer<String, MapRecord<String, String, String>> {
         return StreamMessageListenerContainer.create(factory)
             .apply {
-                receive(Consumer.from("group1", "name1"), StreamOffset.create("stream1", ReadOffset.lastConsumed()), { message -> print(message) })
+                receive(Consumer.from("group1", "name1"), StreamOffset.create("stream1", ReadOffset.lastConsumed()), { message -> println(message) })
 
                 start()
             }
