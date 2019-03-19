@@ -13,7 +13,7 @@ import org.springframework.data.redis.stream.StreamMessageListenerContainer
 
 @Configuration
 @EnableConfigurationProperties(RedisProperties::class)
-class RedisConfiguration(redisProperties: RedisProperties) {
+class RedisConfiguration {
 
     @Bean
     fun reactiveRedisOperations(factory: ReactiveRedisConnectionFactory): ReactiveRedisOperations<String, String> {
@@ -26,8 +26,6 @@ class RedisConfiguration(redisProperties: RedisProperties) {
             .apply {
                 receive(Consumer.from("group1", "name1"),
                     StreamOffset.create("stream1", ReadOffset.lastConsumed())) { message -> println(message) }
-
-                start()
-            }
+            }.also { it.start() }
     }
 }
